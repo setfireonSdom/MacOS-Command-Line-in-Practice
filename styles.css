@@ -1,0 +1,64 @@
+/* =========================
+   Code block (``` )
+   ========================= */
+
+body {
+  background-color: #f5f6f7;   /* 非纯白，极浅中性灰 */
+  color: #2f3437;
+}
+
+.page-columns,
+.content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+p {
+  color: #374151;   /* 比纯黑柔很多 */
+  line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  color: #111827;
+}
+
+a {
+  color: #2563eb;     /* 稳定蓝 */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+pre {
+  background-color: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 0.9em 1.1em;
+}
+
+pre code {
+  color: #1f2937;
+}
+
+/* =========================
+   Inline code (`code`)
+   ========================= */
+
+code {
+  background-color: #f1f3f5;
+  color: #b45309;   /* 保留一点暖色，但不发光 */
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+/* =========================
+   Code output (if any)
+   ========================= */
+
+.cell-output pre {
+  background-color: #f1f

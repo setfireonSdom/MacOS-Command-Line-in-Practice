@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; 查找与定位 – MacOS Command Line in Practice</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cp_5.html" rel="next">
+<link href="./cp_3.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cp_4.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">查找与定位</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">MacOS Command Line in Practice</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Shell 与工作环境（不安装任何东西）</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">文件与目录</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">文本处理</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_4.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">查找与定位</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">进程与系统状态</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">网络与远程</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">macOS 独有的原生命令</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">命令行自动化</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cp_9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">真实工作场景</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">总结</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#find原生-find-的能力边界" id="toc-find原生-find-的能力边界" class="nav-link active" data-scroll-target="#find原生-find-的能力边界"><span class="header-section-number">4.1</span> find（原生 find 的能力边界）</a>
+  <ul class="collapse">
+  <li><a href="#案例-1按名称查找最基础但最常用" id="toc-案例-1按名称查找最基础但最常用" class="nav-link" data-scroll-target="#案例-1按名称查找最基础但最常用"><span class="header-section-number">4.1.1</span> 案例 1：按名称查找（最基础，但最常用）</a></li>
+  <li><a href="#案例-2忽略大小写的查找" id="toc-案例-2忽略大小写的查找" class="nav-link" data-scroll-target="#案例-2忽略大小写的查找"><span class="header-section-number">4.1.2</span> 案例 2：忽略大小写的查找</a></li>
+  <li><a href="#案例-3按时间查找现实世界非常常用" id="toc-案例-3按时间查找现实世界非常常用" class="nav-link" data-scroll-target="#案例-3按时间查找现实世界非常常用"><span class="header-section-number">4.1.3</span> 案例 3：按时间查找（现实世界非常常用）</a></li>
+  <li><a href="#案例-4按大小查找清理磁盘的第一步" id="toc-案例-4按大小查找清理磁盘的第一步" class="nav-link" data-scroll-target="#案例-4按大小查找清理磁盘的第一步"><span class="header-section-number">4.1.4</span> 案例 4：按大小查找（清理磁盘的第一步）</a></li>
+  </ul></li>
+  <li><a href="#which-type" id="toc-which-type" class="nav-link" data-scroll-target="#which-type"><span class="header-section-number">4.2</span> which / type</a>
+  <ul class="collapse">
+  <li><a href="#案例-1which-找可执行文件在哪" id="toc-案例-1which-找可执行文件在哪" class="nav-link" data-scroll-target="#案例-1which-找可执行文件在哪"><span class="header-section-number">4.2.1</span> 案例 1：which —— 找“可执行文件在哪”</a></li>
+  <li><a href="#案例-2type-比-which-更诚实" id="toc-案例-2type-比-which-更诚实" class="nav-link" data-scroll-target="#案例-2type-比-which-更诚实"><span class="header-section-number">4.2.2</span> 案例 2：type —— 比 which 更诚实</a></li>
+  </ul></li>
+  <li><a href="#mdls-mdfindspotlight-的-cli-接口" id="toc-mdls-mdfindspotlight-的-cli-接口" class="nav-link" data-scroll-target="#mdls-mdfindspotlight-的-cli-接口"><span class="header-section-number">4.3</span> mdls / mdfind（Spotlight 的 CLI 接口）</a>
+  <ul class="collapse">
+  <li><a href="#案例-1用-mdfind-直接搜索" id="toc-案例-1用-mdfind-直接搜索" class="nav-link" data-scroll-target="#案例-1用-mdfind-直接搜索"><span class="header-section-number">4.3.1</span> 案例 1：用 mdfind 直接搜索</a></li>
+  <li><a href="#案例-2限制搜索范围" id="toc-案例-2限制搜索范围" class="nav-link" data-scroll-target="#案例-2限制搜索范围"><span class="header-section-number">4.3.2</span> 案例 2：限制搜索范围</a></li>
+  <li><a href="#案例-3查看文件的元数据mdls" id="toc-案例-3查看文件的元数据mdls" class="nav-link" data-scroll-target="#案例-3查看文件的元数据mdls"><span class="header-section-number">4.3.3</span> 案例 3：查看文件的元数据（mdls）</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">查找与定位</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>在真实工作中，你要找的东西往往不是“这个名字的文件在哪里”。而是最近改过的那个配置文件、占空间异常的文件、不知道从哪来的可执行程序、Finder 明明能搜到，但我想在命令行里处理的那批文件。</p>
+<p>这一章只用系统自带工具，回答一个问题：</p>
+<blockquote class="blockquote">
+<p>macOS 在“找东西”这件事上，本来就给了你哪些能力？</p>
+</blockquote>
+<section id="find原生-find-的能力边界" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="find原生-find-的能力边界"><span class="header-section-number">4.1</span> find（原生 find 的能力边界）</h2>
+<p><code>find</code> 是一个<strong>极其朴素、但可靠的工具</strong>。它的工作方式只有一句话：</p>
+<blockquote class="blockquote">
+<p>从某个目录开始，递归遍历每一个文件，用规则逐个判断。</p>
+</blockquote>
+<p>这也决定了它的能力边界：精确、可组合、不快（但稳定）、不“聪明”（但可预期）</p>
+<section id="案例-1按名称查找最基础但最常用" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="案例-1按名称查找最基础但最常用"><span class="header-section-number">4.1.1</span> 案例 1：按名称查找（最基础，但最常用）</h3>
+<p>你想在当前目录下，找所有 <code>.log</code> 文件：</p>
+<pre><code>find . -name "*.log"</code></pre>
+<p>注意这里的几个关键点：</p>
+<ul>
+<li><p>.：查找起点</p></li>
+<li><p>-name：按文件名匹配</p></li>
+<li><p>“*.log”：glob 写法，但由 find 自己解释</p></li>
+</ul>
+<p>这是和 <code>ls *.log</code> 的一个重要区别，glob 是 Shell 展开，<code>-name "*.log"</code> 是 find 在判断。</p>
+</section>
+<section id="案例-2忽略大小写的查找" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="案例-2忽略大小写的查找"><span class="header-section-number">4.1.2</span> 案例 2：忽略大小写的查找</h3>
+<p>在 macOS 默认文件系统下，这个非常常见：</p>
+<pre><code>find . -iname "*.pdf"</code></pre>
+<p>你不需要猜文件到底是 <code>README</code>、<code>Readme</code> 还是 <code>readme</code>。</p>
+</section>
+<section id="案例-3按时间查找现实世界非常常用" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="案例-3按时间查找现实世界非常常用"><span class="header-section-number">4.1.3</span> 案例 3：按时间查找（现实世界非常常用）</h3>
+<p>你想找 <strong>最近一天内修改过的文件</strong>：</p>
+<pre><code>find . -mtime -1</code></pre>
+<p>含义是：</p>
+<ul>
+<li><p><code>-mtime</code>：按“修改时间”</p></li>
+<li><p><code>-1</code>：小于 1 天</p></li>
+</ul>
+<p>如果你想找 <strong>7 天前的文件</strong>：</p>
+<pre><code>find . -mtime +7</code></pre>
+<p>这类用法在排查“最近谁动过什么”时非常有用。</p>
+</section>
+<section id="案例-4按大小查找清理磁盘的第一步" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="案例-4按大小查找清理磁盘的第一步"><span class="header-section-number">4.1.4</span> 案例 4：按大小查找（清理磁盘的第一步）</h3>
+<p>你想找大于 100MB 的文件：</p>
+<pre><code>find . -size +100M</code></pre>
+<p>这一步不是为了立刻删除，而是为了<strong>定位异常对象</strong>。</p>
+</section>
+</section>
+<section id="which-type" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="which-type"><span class="header-section-number">4.2</span> which / type</h2>
+<p>这一节解决的是一个非常具体、但经常困扰人的问题：</p>
+<blockquote class="blockquote">
+<p>我现在用的这个命令，到底来自哪里？</p>
+</blockquote>
+<section id="案例-1which-找可执行文件在哪" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="案例-1which-找可执行文件在哪"><span class="header-section-number">4.2.1</span> 案例 1：which —— 找“可执行文件在哪”</h3>
+<p>你输入：</p>
+<pre><code>which python</code></pre>
+<p>得到一个路径，比如：</p>
+<pre><code>/usr/bin/python</code></pre>
+<p>这意味着当你敲 python 时， Shell 实际执行的是这个文件。</p>
+<p>这在以下场景中非常关键同名命令行为不一致、系统命令 vs 用户安装命令、PATH 顺序引发的问题。</p>
+</section>
+<section id="案例-2type-比-which-更诚实" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="案例-2type-比-which-更诚实"><span class="header-section-number">4.2.2</span> 案例 2：type —— 比 which 更诚实</h3>
+<pre><code>type ls</code></pre>
+<p>你可能会看到：</p>
+<pre><code>ls is /bin/ls</code></pre>
+<p>这就是 <code>type</code> 的价值：</p>
+<blockquote class="blockquote">
+<p>它告诉你，这个名字现在到底代表什么。</p>
+</blockquote>
+<p>是别名、是内建命令、还是磁盘上的可执行文件。</p>
+<p>这是 <code>which</code> 做不到的。</p>
+<p>当行为和预期不一致时， 第一件事，用 type。</p>
+</section>
+</section>
+<section id="mdls-mdfindspotlight-的-cli-接口" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="mdls-mdfindspotlight-的-cli-接口"><span class="header-section-number">4.3</span> mdls / mdfind（Spotlight 的 CLI 接口）</h2>
+<p>这一节，是 <strong>macOS 原生命令行里最容易被低估的一部分</strong>。</p>
+<p>Finder 搜索 ≠ 魔法，Finder 用的是 <strong>Spotlight 索引，</strong><code>mdfind</code> 是它的命令行接口。</p>
+<p>也就是说，你在 Finder 里能搜到的东西， 理论上在命令行里也能搜到。</p>
+<section id="案例-1用-mdfind-直接搜索" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="案例-1用-mdfind-直接搜索"><span class="header-section-number">4.3.1</span> 案例 1：用 mdfind 直接搜索</h3>
+<p>你想找所有包含 “invoice” 的文件：</p>
+<pre><code>mdfind error</code></pre>
+<p>这一步不关心文件在哪、文件名是什么、后缀是什么，它依赖的是系统已经建立好的索引。</p>
+<p>它的意思是在整个系统中搜索<strong>文件名或内容包含 <code>invoice</code></strong> 的文件，包括文档、PDF、邮件、备忘录等所有被 Spotlight 索引的内容。输出文件的<strong>完整路径。</strong></p>
+<p>如果你要找的内容有引号，就这样：</p>
+<pre><code>mdfind "1,Alice,87"
+mdfind "error 123"</code></pre>
+<p>引号内被视为一个整体。</p>
+</section>
+<section id="案例-2限制搜索范围" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="案例-2限制搜索范围"><span class="header-section-number">4.3.2</span> 案例 2：限制搜索范围</h3>
+<p>你只想在某个目录下搜：</p>
+<pre><code>mdfind -onlyin ~/Documents invoice</code></pre>
+<p>这在大型目录结构中非常实用。</p>
+</section>
+<section id="案例-3查看文件的元数据mdls" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="案例-3查看文件的元数据mdls"><span class="header-section-number">4.3.3</span> 案例 3：查看文件的元数据（mdls）</h3>
+<p>你对一个文件感兴趣，但想知道：创建时间、内容类型、Spotlight 认定的属性。</p>
+<pre><code>mdls test.txt</code></pre>
+<p>你会看到一组系统维护的元信息。这不是“文件内容”， 而是 系统对文件的理解结果。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cp_3.html" class="pagination-link" aria-label="文本处理">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">文本处理</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cp_5.html" class="pagination-link" aria-label="进程与系统状态">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">进程与系统状态</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

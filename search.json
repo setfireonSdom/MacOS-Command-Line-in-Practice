@@ -1,0 +1,512 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MacOS Command Line in Practice",
+    "section": "",
+    "text": "Preface",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#你手里的-macos-命令行到底是什么",
+    "href": "index.html#你手里的-macos-命令行到底是什么",
+    "title": "MacOS Command Line in Practice",
+    "section": "你手里的 macOS 命令行，到底是什么",
+    "text": "你手里的 macOS 命令行，到底是什么\n在开始任何命令之前，有一个问题必须先被回答清楚：\n\n你每天打开的这个 Terminal，到底是什么？\n\n如果这个问题没有答案，那么后面你记住的每一个命令，都只是偶然能用的技巧；\n\n如果这个问题有了答案，那么即使你忘了命令，你依然知道该往哪里找、该如何判断、该什么时候停手。\n这一章不教你“怎么用”。\n\n这一章只做一件事：校准你对 macOS 命令行的认知坐标系。\n\nmacOS 的命令行来自哪里（BSD / Unix）\nmacOS 的命令行，并不是苹果“后来加的一个工具”。它的血统非常清晰，也非常古老。你在 Terminal 里看到的 ls、cp、grep、sed、awk，并不是 macOS 专属发明，而是直接继承自 Unix 体系，更准确地说，来自 BSD 系。\n这意味着三件非常重要的事实：\n第一，macOS 的命令行不是“模仿 Linux”，而是与 Linux 同源、但不同分支。很多人在网上复制命令时踩的坑，本质不是“不会用”，而是把 GNU/Linux 的行为，错误地投射到了 BSD/macOS 上。\n第二，macOS 的原生命令，优先稳定与可预测性，而不是功能堆叠。BSD 工具通常选项更少、行为更固定、向后兼容性更强。它们被设计成：\n\n十年后还能用、二十年后还能解释得清楚。\n\n第三，你不是在“学一个苹果工具”，你是在使用一个 经过几十年现实世界验证的操作模型。文件、进程、权限、管道、文本流——这些不是“命令行概念”，而是计算机世界处理现实问题的一套基本抽象。\nTerminal 只是它们的入口。\n\n\n原生命令 ≠ 简陋命令\n很多人一听到“原生命令”，脑子里会自动翻译成：\n\n功能少\n不够强\n迟早要被更高级工具替代\n\n这是一个非常典型的误解。原生命令“看起来简单”，不是因为它们能力弱，而是因为它们被刻意限制了职责边界。\n一个原生命令，通常只做一件事：\n\nls 只负责列出\ngrep 只负责过滤\nawk 只负责按字段处理\nsort 只负责排序\n\n它们不关心“你的业务是什么”，不关心“你最后想得到什么报表”，也不关心“你是不是新手”。\n它们只保证一件事：输入是什么 → 输出就是什么\n真正的力量，并不在单个命令里， 而在于 你如何把它们组合起来。当你开始理解这一点，你会发现：\n\n功能少”意味着行为可预测\n“选项少”意味着出错空间更小\n“职责单一”意味着组合空间更大\n\n原生命令不是简陋，它们只是拒绝替你思考。\n\n\n为什么“限制条件”反而让人更强\n这本书刻意设置了一个限制：\n\n不安装任何第三方工具\n\n这不是为了“复古”，也不是为了“装纯”。而是因为限制条件，会迫使你发生三种关键转变。\n第一，从“找工具”转向“理解问题”。\n当你不能随手 brew install，你会开始问自己这个问题的本质是什么？我到底是要“查找”，还是“过滤”，还是“统计”？这个操作，是一次性的，还是可以复用的？\n第二，从“记命令”转向“判断边界”。你会慢慢意识到：哪些问题，原生就够了；哪些问题，原生做到这里就该停；哪一步开始，引入工具才是理性选择。\n第三，从“依赖环境”转向“可迁移能力”。原生命令有一个非常现实的优势：\n\n它们几乎在哪都存在\n\n公司电脑、客户机器、远程服务器、救援模式、干净系统——当一切配置都不存在时，原生命令依然在。这不是浪漫主义，这是工程世界对“最低可用能力”的尊重。\n\n\n本书的边界与适用场景\n在你继续读之前，有必要把边界说清楚。这本书不会教你写复杂 shell 脚本；教你配置炫酷终端；教你替代 Linux 运维教程；教你成为命令行“专家”。\n这本书只做一件事，让你彻底理解：在 macOS 上， 不借助任何额外工具， 你已经拥有什么样的命令行能力。\n适合这本书的人，通常是：\n\n长期使用 macOS 的开发者 / 数据 / 技术从业者\n对“命令行能不能再多做一点”有真实需求的人\n不想被工具牵着走，希望理解底层能力边界的人",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "cp_1.html",
+    "href": "cp_1.html",
+    "title": "1  Shell 与工作环境（不安装任何东西）",
+    "section": "",
+    "text": "1.1 Terminal.app 的基础能力\n在开始任何“命令”之前，还有一个更基础的问题需要先被澄清：\n很多人对命令行的理解，是从某个命令开始的。但真正决定你能不能稳定使用命令行的，并不是某条命令，而是这个环境本身的工作方式。\n这一章不要求你安装任何东西，甚至不要求你记住任何配置。我们只讨论一件事：\nTerminal.app 并不是一个“命令行工具”， 它只是一个终端模拟器。\n它做的事情非常单纯：\nTerminal 本身不理解命令，也不决定命令的行为。这件事一旦想清楚，很多困惑会自动消失。比如：命令执行慢，不是 Terminal 慢；命令结果奇怪，不是 Terminal “出 bug”；换一个终端应用，命令行为却没变。\n因为真正工作的，是 Shell + 系统工具，不是窗口本身。\nTerminal.app 的价值，在于它是系统自带、行为稳定、几乎不会引入额外干扰。\n这意味着一件很重要的事当你在 Terminal 里遇到问题， 几乎可以确定问题不在“界面层”。这对于理解和排错来说，是一种极大的简化。",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Shell 与工作环境（不安装任何东西）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_1.html#zsh-默认行为与工作方式",
+    "href": "cp_1.html#zsh-默认行为与工作方式",
+    "title": "1  Shell 与工作环境（不安装任何东西）",
+    "section": "1.2 zsh 默认行为与工作方式",
+    "text": "1.2 zsh 默认行为与工作方式\n在当前版本的 macOS 中， 你打开 Terminal 后进入的，默认是 zsh。\n\n可以终端输入echo $SHELL 检查\n\n但这里有一个关键点，常常被忽略：\n\n你使用的不是“zsh 的全部能力”，\n\n而是“苹果选择开启的那一部分”。\n\n默认 zsh 的特点非常明确，它行为偏保守、配置偏最小、几乎不替你做决定。这和很多教程里的 zsh 体验是不同的。 那些“自动高亮”“花哨提示”“智能纠错”， 大多来自额外配置，而不是 zsh 的本体。在默认状态下，zsh 更像一个严格的执行环境，你输入什么，它就执行什么；你写错了，它不会帮你猜；你路径不对，它会明确失败。\n这种“冷漠”，反而是可靠性的来源。你在这一阶段需要理解的不是“zsh 有多强”，而是Shell 本质上只是一个读取输入 → 展开 → 执行 → 返回结果的循环系统。\n当你理解这一点后，alias、函数、脚本，都只是这个循环里的不同层次。",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Shell 与工作环境（不安装任何东西）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_1.html#path环境变量与启动顺序",
+    "href": "cp_1.html#path环境变量与启动顺序",
+    "title": "1  Shell 与工作环境（不安装任何东西）",
+    "section": "1.3 PATH、环境变量与启动顺序",
+    "text": "1.3 PATH、环境变量与启动顺序\n很多人第一次真正被命令行“卡住”， 往往发生在 PATH 上。但 PATH 本身并不复杂， 它只是一个非常朴素的规则：\n\n当你输入一个命令名时， Shell 会按顺序去一组目录里找同名的可执行文件。\n\n这组目录，就是 PATH。重要的不是“PATH 怎么配置”， 而是你要意识到三件事：\n第一，命令是文件。ls、grep、python，本质上都是磁盘上的可执行文件。找不到命令，通常不是“没装”，而是“不在搜索路径里”。\n第二，顺序决定优先级。PATH 是有顺序的， 排在前面的目录，优先级更高。 这也是为什么“同名命令”有时会产生混乱。\n第三，环境变量是在启动时被继承的。Shell 启动时，会按既定顺序读取系统级、用户级配置， 然后把环境变量传递给后续执行的程序。\n这意味着如果你不理解启动顺序，你就很难判断“为什么这个值是现在这样”。\n这一章不要求你立刻去改 PATH，但你至少应该知道当行为异常时， PATH 和环境变量，永远是第一批该被检查的对象。",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Shell 与工作环境（不安装任何东西）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_1.html#常见系统自带快捷能力历史补全",
+    "href": "cp_1.html#常见系统自带快捷能力历史补全",
+    "title": "1  Shell 与工作环境（不安装任何东西）",
+    "section": "1.4 常见系统自带快捷能力（历史、补全）",
+    "text": "1.4 常见系统自带快捷能力（历史、补全）\n当你第一次使用 Shell 时，很容易产生一种错觉：\n\n命令行效率低，是因为每次都要从头输入一整行命令。\n\n这个判断并不准确。 在 macOS 的默认 Shell 环境中，一些极其基础、但被长期忽视的能力已经存在，而且每天都在生效。\n它们不改变你“能做什么”，只改变你为重复劳动付出的成本。\n\n1.4.1 命令历史：Shell 并不会忘记你做过的事\n在默认的 zsh 环境下， 你输入并执行过的命令，会被自动记录下来。这意味着你不需要记住完整命令，你只需要记住“你以前做过这件事”。通过历史机制，Shell 实际上提供了一种非常原始、但可靠的“行为记忆”。\n\n\n1.4.2 基础补全：Shell 只做确定的事\n在默认配置下，zsh 提供的是保守型补全。它的行为原则非常简单，只有在结果唯一或足够明确时，才会补全不会；主动猜测你“可能想要什么”；不会隐藏歧义。\n最常见、也最稳定的补全对象是文件名、目录名、路径片段。当补全无法进行时， 通常不是 Shell “不够智能”， 而是当前上下文存在多个合法选择。这是一种刻意的设计选择，宁可停下来让你确认，也不擅自替你决定。\n\n\n1.4.3 行内编辑：命令行并不是“一次性输入”\n很多初学者对命令行的误解，来自于一个隐含假设：\n\n一行命令一旦写错，就只能整行重来。\n\n在默认 Shell 环境中，这个假设并不成立。你输入的命令，本质上是一段可编辑的文本，可以在同一行内移动光标，可以修改中间的参数，可以在不重输整行的情况下修正错误。\n这意味着 Shell 的交互模型，更接近一个文本编辑器，而不是“一次性指令输入框”。\n当你意识到这一点后，你会自然减少“敲完整命令”的冲动，而开始更频繁地修改已有内容。",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Shell 与工作环境（不安装任何东西）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_2.html",
+    "href": "cp_2.html",
+    "title": "2  文件与目录",
+    "section": "",
+    "text": "2.1 文件系统基础（APFS 的现实影响）\n你在命令行里，真正接触到的第一个“现实对象”，不是命令本身， 而是 文件和目录。代码、日志、配置、数据、文档——它们最终都会落到文件系统里。\n这一章不追求“覆盖所有命令”，而是通过一组连续案例，让你具备一种能力：",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>文件与目录</span>"
+    ]
+  },
+  {
+    "objectID": "cp_2.html#浏览目录结构",
+    "href": "cp_2.html#浏览目录结构",
+    "title": "2  文件与目录",
+    "section": "2.2 浏览目录结构",
+    "text": "2.2 浏览目录结构\n\n2.2.1 ls（BSD 行为）、pwd\n快速理解一个陌生目录，假设你刚 cd 进一个完全陌生的目录。\n第一步，别急着看文件内容：\npwd\n确认你到底在哪。\n第二步：\nls\n只看名字，不看细节。\n第三步：\nls -l\n你现在知道哪些是目录、哪些是普通文件、哪些明显很大、很小\n\n\n2.2.2 glob（* ? []）\n在 glob 规则里：\n\n*：匹配 任意长度 的任意字符\n?：匹配 恰好一个字符\n[]：匹配 字符集合中的一个\n\nglob是筛选器，你想只看 .log 文件：\n# 只能匹配「当前目录」里的 txt 文件。\nls *.txt\n只看以 t 开头的文件：\nls t*\n只看单字符变化的版本文件：\nls file?.txt\nglob 做不到真正递归。",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>文件与目录</span>"
+    ]
+  },
+  {
+    "objectID": "cp_2.html#查看文件内容",
+    "href": "cp_2.html#查看文件内容",
+    "title": "2  文件与目录",
+    "section": "2.3 查看文件内容",
+    "text": "2.3 查看文件内容\n\n2.3.1 cat\n为什么不推荐直接 cat?\n你拿到一个日志文件：\ncat server.log\n终端瞬间被刷屏。 这不是 cat 的错，而是使用场景不对。\n\n\n2.3.2 less\nless 是“查看”的默认入口，同样的文件：\nless server.log\n你立刻获得可控滚动、搜索、不破坏终端状态。\n任何你“不确定大小和结构”的文件， 第一反应都应该是 less。\n\n\n2.3.3 head / tail\n只看头或尾，你只想确认文件结构：\nhead test.txt\n你只关心下面的内容：\ntail test.txt",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>文件与目录</span>"
+    ]
+  },
+  {
+    "objectID": "cp_2.html#创建移动删除",
+    "href": "cp_2.html#创建移动删除",
+    "title": "2  文件与目录",
+    "section": "2.4 创建、移动、删除",
+    "text": "2.4 创建、移动、删除\n\n2.4.1 touch\ntouch 的真实用途。\ntouch config.yaml\n它不只是“创建文件”，更常见的用途是，确保一个文件存在，而不关心内容。\n\n\n2.4.2 mkdir\nmkdir 的习惯性用法：\nmkdir project\ncd project\n这是新环境的起点。如果你需要多层结构：\nmkdir -p data/raw\n\n\n2.4.3 cp / mv\ncp / mv 的区别不是“复制 vs 移动”。\n在当前目录下，把 test.txt 的内容复制一份，生成新文件 test_cp.txt\ncp test.txt test_cp.txt\n它是生成新实体。\n把 test.txt 移动到 archive/ 文件夹内。\n把test.txt名改为Test.txt\nmv test.txt archive/\nmv test.txt Test.txt\n它是改变位置或名称。这一区别在脚本和自动化中非常重要。\n\n\n2.4.4 rm（原生风险控制）\n先看一个安全习惯：\nls *.tmp\n确认无误后，再：\nrm *.tmp\n而不是反过来。 macOS 的 rm 不会给你后悔机会。 没有回收站，没有撤销。\n删除是一个不可逆动作，你需要对它负责。",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>文件与目录</span>"
+    ]
+  },
+  {
+    "objectID": "cp_3.html",
+    "href": "cp_3.html",
+    "title": "3  文本处理",
+    "section": "",
+    "text": "3.1 grep（原生版）\n日志、CSV、配置、代码、导出的数据——它们的共同点是，都是文本。\n你不需要数据库， 不需要 Excel， 甚至不需要写脚本。你只需要学会一件事，让文本从一行行字符，变成可以被筛选、变形、组合的材料。\ngrep 做的事情只有一件，从文本中，把“符合条件的行”挑出来。\n假设你有一个日志文件：\n第一反应永远不是打开编辑器，而是：\n这个指令是 获取包含 “error” 的行（不是以 error 开头）。",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>文本处理</span>"
+    ]
+  },
+  {
+    "objectID": "cp_3.html#sedmacos-特有写法",
+    "href": "cp_3.html#sedmacos-特有写法",
+    "title": "3  文本处理",
+    "section": "3.2 sed（macOS 特有写法）",
+    "text": "3.2 sed（macOS 特有写法）\nsed 的角色是在文本通过时，对内容进行规则化修改。它不是编辑器，它是文本变换器。\n\n3.2.1 预览式替换（不改文件）\nsed 's/error/ERROR/' server.log\n这是 用 sed 命令替换文件中的文本，读取 server.log 的每一行，每行第一个出现的 error 替换成 ERROR 。输出到屏幕（不修改原文件）\n你会看到输出变了， 但文件本身没有被修改。 这是 sed 的安全使用方式。\n\n\n3.2.2 -i ’’\n在 macOS（BSD sed）里，就地修改文件必须这样写：\nsed -i '' 's/error/ERROR/' server.log\n-i ''：表示不生成备份文件。\n少了这个空字符串，命令会直接失败。这是 macOS 用户必须知道的一个事实差异。\n\n\n3.2.3 批量修正配置\n你有一批文件：\nls *.conf\n你要统一替换一个值：\nsed -i '' 's/localhost/127.0.0.1/g' *.conf\ng代表所有匹配的内容，没有它就只匹配每一行碰到的第一个。\n先确认 glob 展开的对象， 再执行 sed。",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>文本处理</span>"
+    ]
+  },
+  {
+    "objectID": "cp_3.html#awk字段级武器",
+    "href": "cp_3.html#awk字段级武器",
+    "title": "3  文本处理",
+    "section": "3.3 awk（字段级武器）",
+    "text": "3.3 awk（字段级武器）\n如果说 grep 是“行筛选”， sed 是“行变形”， 那 awk 是，在一行内部，按字段进行计算和重组。\n\n3.3.1 最小可用集\n\n$1, $2, $3：第 1、2、3 列\n$0：整行\n-F：字段分隔符\n\n\n\n3.3.2 实战案例\n\n3.3.2.1 1 从 CSV 中取你真正要的列\n假设文件 data.csv 内容是：\nid,name,score\n1,Alice,87\n2,Bob,92\n3,Charlie,78\n你只关心名字和分数：\nawk -F',' '{print $2, $3}' data.csv\n输出立刻变成：\nname score\nAlice 87\nBob 92\nCharlie 78\n\n\n3.3.2.2 2 带条件的筛选\n只看分数大于 85 的：\nawk -F',' '$3 &gt; 85 {print $2, $3}' data.csv\n你已经在不写脚本的情况下做判断了。\nname score\nAlice 87\nBob 92\n\n\n3.3.2.3 3 简单统计\nawk -F',' '{sum += $3} END {print sum}' data.csv\n这已经是“计算”，而不仅是查看。\n257",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>文本处理</span>"
+    ]
+  },
+  {
+    "objectID": "cp_3.html#管道与重定向",
+    "href": "cp_3.html#管道与重定向",
+    "title": "3  文本处理",
+    "section": "3.4 管道与重定向",
+    "text": "3.4 管道与重定向\n这一节不是新工具，而是把前面所有工具连起来的方式。\n\n3.4.1 |：把一个命令的输出，变成下一个的输入\ngrep error server.log | less\n这是现实世界里最常见的组合之一：\n\ngrep：缩小范围\nless：可控查看\n\n\n3.4.1.1 案例\ngrep error -i server.log | grep -v Error\n你不是一次写完条件，而是逐层逼近目标。\n\n\n\n3.4.2 &gt; 与 &gt;&gt;：输出去向\ngrep error server.log &gt; test.txt\n这是覆盖写入。\ngrep error server.log &gt;&gt; test.txt\n这是追加写入。区别不在符号，而在后果。\n\n\n3.4.3 &lt;：输入重定向（较少见，但存在）\nawk '{print $1}' &lt; data.txt\n明确告诉命令：输入来自文件，而不是键盘。\n\n3.4.3.1 组合思维（完整流程）\n你拿到一个巨大日志文件，想做三件事：\n\n只看 error\n排除 DEBUG\n保存结果\n\ngrep error server.log \\\n  | grep -v DEBUG \\\n  &gt; clean_errors.log",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>文本处理</span>"
+    ]
+  },
+  {
+    "objectID": "cp_4.html",
+    "href": "cp_4.html",
+    "title": "4  查找与定位",
+    "section": "",
+    "text": "4.1 find（原生 find 的能力边界）\n在真实工作中，你要找的东西往往不是“这个名字的文件在哪里”。而是最近改过的那个配置文件、占空间异常的文件、不知道从哪来的可执行程序、Finder 明明能搜到，但我想在命令行里处理的那批文件。\n这一章只用系统自带工具，回答一个问题：\nfind 是一个极其朴素、但可靠的工具。它的工作方式只有一句话：\n这也决定了它的能力边界：精确、可组合、不快（但稳定）、不“聪明”（但可预期）",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>查找与定位</span>"
+    ]
+  },
+  {
+    "objectID": "cp_4.html#which-type",
+    "href": "cp_4.html#which-type",
+    "title": "4  查找与定位",
+    "section": "4.2 which / type",
+    "text": "4.2 which / type\n这一节解决的是一个非常具体、但经常困扰人的问题：\n\n我现在用的这个命令，到底来自哪里？\n\n\n4.2.1 案例 1：which —— 找“可执行文件在哪”\n你输入：\nwhich python\n得到一个路径，比如：\n/usr/bin/python\n这意味着当你敲 python 时， Shell 实际执行的是这个文件。\n这在以下场景中非常关键同名命令行为不一致、系统命令 vs 用户安装命令、PATH 顺序引发的问题。\n\n\n4.2.2 案例 2：type —— 比 which 更诚实\ntype ls\n你可能会看到：\nls is /bin/ls\n这就是 type 的价值：\n\n它告诉你，这个名字现在到底代表什么。\n\n是别名、是内建命令、还是磁盘上的可执行文件。\n这是 which 做不到的。\n当行为和预期不一致时， 第一件事，用 type。",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>查找与定位</span>"
+    ]
+  },
+  {
+    "objectID": "cp_4.html#mdls-mdfindspotlight-的-cli-接口",
+    "href": "cp_4.html#mdls-mdfindspotlight-的-cli-接口",
+    "title": "4  查找与定位",
+    "section": "4.3 mdls / mdfind（Spotlight 的 CLI 接口）",
+    "text": "4.3 mdls / mdfind（Spotlight 的 CLI 接口）\n这一节，是 macOS 原生命令行里最容易被低估的一部分。\nFinder 搜索 ≠ 魔法，Finder 用的是 Spotlight 索引，mdfind 是它的命令行接口。\n也就是说，你在 Finder 里能搜到的东西， 理论上在命令行里也能搜到。\n\n4.3.1 案例 1：用 mdfind 直接搜索\n你想找所有包含 “invoice” 的文件：\nmdfind error\n这一步不关心文件在哪、文件名是什么、后缀是什么，它依赖的是系统已经建立好的索引。\n它的意思是在整个系统中搜索文件名或内容包含 invoice 的文件，包括文档、PDF、邮件、备忘录等所有被 Spotlight 索引的内容。输出文件的完整路径。\n如果你要找的内容有引号，就这样：\nmdfind \"1,Alice,87\"\nmdfind \"error 123\"\n引号内被视为一个整体。\n\n\n4.3.2 案例 2：限制搜索范围\n你只想在某个目录下搜：\nmdfind -onlyin ~/Documents invoice\n这在大型目录结构中非常实用。\n\n\n4.3.3 案例 3：查看文件的元数据（mdls）\n你对一个文件感兴趣，但想知道：创建时间、内容类型、Spotlight 认定的属性。\nmdls test.txt\n你会看到一组系统维护的元信息。这不是“文件内容”， 而是 系统对文件的理解结果。",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>查找与定位</span>"
+    ]
+  },
+  {
+    "objectID": "cp_5.html",
+    "href": "cp_5.html",
+    "title": "5  进程与系统状态",
+    "section": "",
+    "text": "5.1 进程查看",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>进程与系统状态</span>"
+    ]
+  },
+  {
+    "objectID": "cp_5.html#作业控制",
+    "href": "cp_5.html#作业控制",
+    "title": "5  进程与系统状态",
+    "section": "5.2 作业控制",
+    "text": "5.2 作业控制\n这一节处理的是 Shell 内部的并发， 而不是系统级多任务。\n\n5.2.1 &：把任务放到后台跑\nsleep 60 &\n你会立刻拿回提示符。这表示这个命令还在跑，但不再占着你的终端。这在桌面系统里非常常见：下载、简单脚本、临时任务。\n\n\n5.2.2 jobs / fg / bg\njobs\n你会看到当前 Shell 启动的后台任务。重要的是这个限定词：“这个 Shell”。\n换一个终端窗口，你就看不到了。你可以先使用上述的sleep命令，再用这个jobs试试看。\nfg\n把最近的后台任务拉回前台。\nbg\n让暂停的任务继续在后台跑。\n作业控制解决的是“我如何一边干别的，一边让这个命令继续跑。”",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>进程与系统状态</span>"
+    ]
+  },
+  {
+    "objectID": "cp_5.html#系统资源",
+    "href": "cp_5.html#系统资源",
+    "title": "5  进程与系统状态",
+    "section": "5.3 系统资源",
+    "text": "5.3 系统资源\n这一节关注的不是“谁在跑”，而是系统整体还能不能扛住。\n\n5.3.1 df / du\ndf -h\n这是查看磁盘空间使用情况的命令，df 即disk free，磁盘空闲空间，-h 即human-readable，人类可读格式（自动用 GB/MB 显示）\n这是任何异常排查的第一步之一。你关心的不是所有分区，而是：\n\n/\n用户目录所在磁盘\n\ndu -h .\ndu 即disk usage，磁盘使用量，-h 即human-readable，人类可读（自动用 KB/MB/GB）\n执行结果为：显示当前文件夹及其所有子文件/文件夹占用的磁盘空间。\n你可以看到当前目录下哪些子目录占空间，占了多少。结合 sort 使用更清晰（BSD 原生也有）：\ndu -h . | sort -h\n最后一行就是当前目录总大小。\n这一步不是为了立刻删除，而是为了定位异常来源。\n\n\n5.3.2 vm_stat：内存压力，而不是“内存用了多少”\nmacOS 的内存管理和 Linux 不同，“空闲内存”并不是一个好指标。\nvm_stat\n这是 查看 macOS 虚拟内存（Virtual Memory）状态 的命令。\nvm 即virtual memory，虚拟内存，_stat 即status，状态统计。用于显示系统内存使用的底层统计数据。\n你关注的不是具体数字，而是，是否频繁 page out、是否存在明显内存压力。\n示例输出\nMach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                              123456.\nPages active:                            234567.\nPages inactive:                          345678.\nPages wired down:                        12345.\nPages used by compressor:                56789.\n\n注意：数值单位是 page（页），默认每页 16384 字节（16KB）\n\n\n\n5.3.3 uptime：系统是否“长期疲劳”\nuptime\n这是 **查看系统运行时间和负载** 的命令。\n你会看到系统运行了多久，最近一段时间的平均负载。\n例如：16:30:00 up 3 days, 2:15, 2 users, load averages: 2.34 1.98 1.76",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>进程与系统状态</span>"
+    ]
+  },
+  {
+    "objectID": "cp_6.html",
+    "href": "cp_6.html",
+    "title": "6  网络与远程",
+    "section": "",
+    "text": "6.1 网络基本状态\n在桌面系统里，网络不是一个抽象概念，而是一连串非常具体的问题：我现在有没有联网？是 Wi-Fi 的问题，还是对方的问题？这个接口到底有没有返回？我能不能直接把文件拉过来？\n这一章不追求“理解网络协议”，而是让你在出现问题的那一刻，知道该用哪一个原生命令，把情况判断清楚。\n这一节解决的不是“网络怎么工作”，而是我现在这台机器，到底处在什么网络状态。",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>网络与远程</span>"
+    ]
+  },
+  {
+    "objectID": "cp_6.html#http-与接口调试",
+    "href": "cp_6.html#http-与接口调试",
+    "title": "6  网络与远程",
+    "section": "6.2 HTTP 与接口调试",
+    "text": "6.2 HTTP 与接口调试\n\n6.2.1 curl（macOS 自带）\n很多人第一次接触 curl，是用来“下文件”。但在真实工作中，它更常被用来验证接口是否存在、是否返回、返回了什么。\n\n6.2.1.1 案例 1：最简单的 GET 请求\ncurl https://setfireonsdom.github.io/Ollama-Book/\n你得到的不是“网页”，而是服务器返回的原始内容。这一步的价值在于跳过浏览器，直接面对服务器响应。\n\n\n6.2.1.2 案例 2：只看响应头\ncurl -I https://setfireonsdom.github.io/Ollama-Book/\n你可以立刻看到状态码（200 / 404 / 500）、重定向、内容类型。这是接口调试中非常高频的一步。\n输出例子：\nHTTP/2 200 \nserver: GitHub.com\ncontent-type: text/html; charset=utf-8\n......\n\n\n6.2.1.3 案例 3：POST 请求（最小形态）\ncurl -X POST https://api.example.com/test\n你不需要立刻写复杂参数，先确认这个接口，能不能被访问。\ncurl -X POST https://httpbin.org/post \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"name\":\"张三\",\"message\":\"Hello\"}'\n\n\n6.2.1.4 案例 4：带简单参数\ncurl \"https://httpbin.org/get?q=test\"\n当你怀疑“接口逻辑”而不是“网络本身”时， curl 是最快的验证方式。",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>网络与远程</span>"
+    ]
+  },
+  {
+    "objectID": "cp_6.html#远程连接",
+    "href": "cp_6.html#远程连接",
+    "title": "6  网络与远程",
+    "section": "6.3 远程连接",
+    "text": "6.3 远程连接\n这一节解决的不是“远程运维”，而是我如何直接连到另一台机器，或者把文件在两台机器之间移动。\n\n6.3.1 ssh：远程登录的最低成本方式\nssh user@remote-host\n成功之后，你得到的是另一台机器上的一个 Shell。这一步在现实中常用于访问远程服务器、登录公司内网机器、临时排查问题。\n\n6.3.1.1 案例 1：确认“连不连得上”\nssh user@remote-host \"echo ok\"\n如果你看到 ok，说明网络通、权限通、ssh 服务正常。不需要真正登录进去。\n\n\n\n6.3.2 scp：最直接的文件传输\nscp 解决的是一个非常朴素的问题，把这个文件，从这里，放到那里。\n\n6.3.2.1 案例 1：本地 → 远程\nscp report.txt user@remote-host:/home/user/\n\n\n6.3.2.2 案例 2：远程 → 本地\nscp user@remote-host:/home/user/report.txt .\n你不需要任何额外工具，也不需要打开图形界面。\n\n\n6.3.2.3 案例 3：传目录（递归）\nscp -r data/ user@remote-host:/home/user/\n这是桌面系统里非常常见的真实需求拷日志、拷结果、拷临时数据。",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>网络与远程</span>"
+    ]
+  },
+  {
+    "objectID": "cp_7.html",
+    "href": "cp_7.html",
+    "title": "7  macOS 独有的原生命令",
+    "section": "",
+    "text": "7.1 open：连接 GUI 与 CLI\n在前面的章节里，我们刻意只使用“任何 Unix 都可能有的能力”。从这一章开始，情况发生了变化。这里的命令不能直接照搬到 Linux，不是通用 Unix 教材的一部分，但在 macOS 上极其自然、极其高效。\nopen 是 macOS 命令行里最被低估的命令之一。它的本质不是“打开文件”，而是把一个对象，交给系统默认的图形处理方式。",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>macOS 独有的原生命令</span>"
+    ]
+  },
+  {
+    "objectID": "cp_7.html#pbcopy-pbpaste剪贴板",
+    "href": "cp_7.html#pbcopy-pbpaste剪贴板",
+    "title": "7  macOS 独有的原生命令",
+    "section": "7.2 pbcopy / pbpaste（剪贴板）",
+    "text": "7.2 pbcopy / pbpaste（剪贴板）\n这一组命令解决的是一个非常具体的问题：如何让命令行， 直接参与“复制 / 粘贴”这个桌面动作。\n\n7.2.1 pbcopy：把输出放进剪贴板\nls | pbcopy\n它把ls的输出放进剪贴板，相当于复制了ls的输出。\n现在你可以直接在任何 GUI 程序里粘贴。这一步的价值在于你不需要中间文件，也不需要手动选择文本。\ncat data.csv| pbcopy\n相当于复制data.csv的内容，这样不用打开文件，可以直接复制。\n\n\n7.2.2 pbpaste：从剪贴板取内容\npbpaste\n这会把当前剪贴板内容，当作标准输出打印出来。\n\n7.2.2.1 案例 1：命令行 → GUI 的真实桥梁\ngrep error server.log | pbcopy\n然后在邮件、文档、聊天工具里直接粘贴。这是真实工作中非常高频的用法。\n\n\n7.2.2.2 案例 2：GUI → 命令行\n你从网页或文档中复制了一段文本：\npbpaste | wc -l\nwc -l 即word count -lines，统计行数。\n你没有保存文件，但已经能在命令行里处理它。",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>macOS 独有的原生命令</span>"
+    ]
+  },
+  {
+    "objectID": "cp_7.html#say-afplay系统能力",
+    "href": "cp_7.html#say-afplay系统能力",
+    "title": "7  macOS 独有的原生命令",
+    "section": "7.3 say / afplay（系统能力）",
+    "text": "7.3 say / afplay（系统能力）\n命令行可以直接调用系统级能力。\n\n7.3.1 say：把文本变成语音\nsay \"Task completed\"\nsay \"你好\"\n这个真挺有意思的。macOS 会直接朗读这句话，现实用途包括：长任务完成提醒、脚本结束提示、无需盯屏幕的反馈。\n\n7.3.1.1 案例 1：命令执行完成提示\nsleep 5 && say \"起床了\"\ncat data.csv | say\n\n\n\n7.3.2 afplay：播放音频文件\nafplay alert.wav\n这是系统自带的音频播放接口。\n\n7.3.2.1 案例 1：最简单的“声音通知”\necho \"start\" && afplay /System/Library/Sounds/Glass.aiff\nafplay 即Audio File Play，macOS 播放音频文件。\n/System/Library/Sounds/Glass.aiff 即系统自带音效路径，",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>macOS 独有的原生命令</span>"
+    ]
+  },
+  {
+    "objectID": "cp_7.html#log-show系统日志",
+    "href": "cp_7.html#log-show系统日志",
+    "title": "7  macOS 独有的原生命令",
+    "section": "7.4 log show（系统日志）",
+    "text": "7.4 log show（系统日志）\n这是 macOS 命令行里最容易被误用、也最容易被低估的工具。macOS 的系统日志不是纯文本文件，不能直接 cat ，是统一日志系统（Unified Logging）\nlog show 是它的官方 CLI 接口。\n\n7.4.1 案例 1：查看最近的系统日志\nlog show --last 1h\n含义是：显示最近 1 小时的系统日志。你不需要理解所有输出，只需要知道这是系统“真实发生过的事”。\n\n\n7.4.2 案例 2：按进程筛选\nlog show --predicate 'process == \"kernel\"' --last 10m\n你可以把日志范围缩到一个明确对象。\n\n\n7.4.3 案例 3：调试某个应用的问题\nlog show --predicate 'subsystem == \"com.apple.network\"' --last 30m\n这是 Finder、系统设置无法直接做到的。log show 不是用来“翻日志”的， 而是用来“验证某件事是否真的发生过”。",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>macOS 独有的原生命令</span>"
+    ]
+  },
+  {
+    "objectID": "cp_8.html",
+    "href": "cp_8.html",
+    "title": "8  命令行自动化",
+    "section": "",
+    "text": "8.1 alias（轻量自动化）\nalias 的定位非常明确：给一条已经写好的命令，起一个你记得住的名字。\n它不改变逻辑，只降低使用成本。",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>命令行自动化</span>"
+    ]
+  },
+  {
+    "objectID": "cp_8.html#简单函数",
+    "href": "cp_8.html#简单函数",
+    "title": "8  命令行自动化",
+    "section": "9.1 简单函数",
+    "text": "9.1 简单函数\n当 alias 不够用，但你又不想写脚本文件， Shell 函数正好填补这个空位。\n函数 = 带参数的 alias\n它不是程序，只是一个可复用命令块。\n\n9.1.1 案例 1：带参数的常用操作\n你经常做这件事，在某个目录里， 找 error 并排除 DEBUG。你可以定义一个函数（概念示例）：\nfinderr() { grep -i  error \"$1\" | grep -v Error }\n直接在终端定义，关闭终端就无效了。也可以写入配置文件，也可以创建临时脚本再source激活。\nfinderr server.log",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>命令行自动化</span>"
+    ]
+  },
+  {
+    "objectID": "cp_8.html#cron-at系统自带",
+    "href": "cp_8.html#cron-at系统自带",
+    "title": "8  原生命令行自动化（不写复杂脚本）",
+    "section": "8.3 cron / at（系统自带）",
+    "text": "8.3 cron / at（系统自带）",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>原生命令行自动化（不写复杂脚本）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html",
+    "href": "cp_9.html",
+    "title": "9  真实工作场景",
+    "section": "",
+    "text": "9.1 场景一｜快速理解一个陌生目录\n示例输出：",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "cp_10.html",
+    "href": "cp_10.html",
+    "title": "10  原生命令行的上限与边界",
+    "section": "",
+    "text": "10.1 哪些问题原生命令就够了",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>原生命令行的上限与边界</span>"
+    ]
+  },
+  {
+    "objectID": "cp_10.html#哪些问题你必须安装工具",
+    "href": "cp_10.html#哪些问题你必须安装工具",
+    "title": "10  原生命令行的上限与边界",
+    "section": "10.2 哪些问题你必须安装工具",
+    "text": "10.2 哪些问题你必须安装工具",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>原生命令行的上限与边界</span>"
+    ]
+  },
+  {
+    "objectID": "cp_10.html#为什么理解原生是长期价值",
+    "href": "cp_10.html#为什么理解原生是长期价值",
+    "title": "10  原生命令行的上限与边界",
+    "section": "10.3 为什么“理解原生”是长期价值",
+    "text": "10.3 为什么“理解原生”是长期价值",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>原生命令行的上限与边界</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "10  总结",
+    "section": "",
+    "text": "10.1 原生命令行的上限与边界",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>总结</span>"
+    ]
+  },
+  {
+    "objectID": "cp_1.html#terminal.app-的基础能力",
+    "href": "cp_1.html#terminal.app-的基础能力",
+    "title": "1  Shell 与工作环境（不安装任何东西）",
+    "section": "",
+    "text": "打开一个窗口\n连接到一个 Shell\n把你输入的字符，原样交给 Shell 处理\n把 Shell 的输出，显示出来",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Shell 与工作环境（不安装任何东西）</span>"
+    ]
+  },
+  {
+    "objectID": "cp_2.html#文件系统基础apfs-的现实影响",
+    "href": "cp_2.html#文件系统基础apfs-的现实影响",
+    "title": "2  文件与目录",
+    "section": "",
+    "text": "2.1.1 大小写\n大小写不是你以为的那样，在 macOS 默认的 APFS 上，大多数用户使用的是大小写不敏感文件系统。\n你可以直接验证：\ntouch test.txt\nls Test.txt\n你会发现，居然能列出来。这意味着什么？test.txt 和 Test.txt 在默认 macOS 上是同一个文件，但在 Linux 服务器上，它们通常是两个不同文件。\n\n当你在 Mac 上“没问题”的代码， 放到服务器上突然报错， 很多时候不是语言问题，而是文件名问题。\ntouch Test.txt\ntouch TEST.txt\ntouch TeSt.txt\n\n都是同一个文件。\nls -li Test.txt test.txt\n\n\n\n2.1.2 权限\n先看一个最常见的权限现象：\nls -l\n\n不要试图一次性记住所有字段。你现在只需要抓住一件事，文件是否能被操作，取决于，你是谁 + 你想干什么。\n一个最直接的体验方式是：\ntouch demo.sh\nchmod -x demo.sh\n./demo.sh\n# 输出：zsh: permission denied: ./demo.sh\n你会得到一个明确的拒绝。\n\n\n2.1.3 Finder vs CLI\n在 Finder 里，你可能看到“文件大小 4 KB”。\n\n但在命令行里：\nls -lh demo.sh\nls -lh test.txt\n# 输出\n# -rw-r--r--  1 xx  xx     0B  x月  x xx:xx demo.sh\n# -rw-r--r--  1 xx  xx     7B  x月  x xx:xx test.txt\n你看到的是另一套视角。\n再进一步：\ndu -h demo.sh\ndu -h test.txt\n# 输出\n# 0B    demo.sh\n# 4.0K  test.txt\n你会发现Finder 展示的是逻辑大小，CLI 可以告诉你实际占用空间。当空间、权限、归属出现争议时， 以 CLI 为准。",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>文件与目录</span>"
+    ]
+  },
+  {
+    "objectID": "cp_3.html#grep原生版",
+    "href": "cp_3.html#grep原生版",
+    "title": "3  文本处理",
+    "section": "",
+    "text": "server.log\n\ngrep error server.log\n\n\n3.1.1 常用但足够的模式\n你不需要记正则大全，只要三种：\n# 1 忽略大小写\ngrep -i error server.log\n适合日志、用户输入、混乱来源。\n# 2 反向匹配（排除）\ngrep -v error server.log\n不是“找什么”，而是“不要什么”。\n# 3 递归搜索目录\ngrep -R TODO .\n这是在代码仓库里快速摸底的常用方式。\n\n\n3.1.2 快速确认“有没有发生过”\ngrep \"connection refused\" server.log\n如果没有输出，你就可以立即得出一个结论：至少从文本记录上看，没有发生过。这比“我感觉应该没有”要可靠得多。",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>文本处理</span>"
+    ]
+  },
+  {
+    "objectID": "cp_4.html#find原生-find-的能力边界",
+    "href": "cp_4.html#find原生-find-的能力边界",
+    "title": "4  查找与定位",
+    "section": "",
+    "text": "从某个目录开始，递归遍历每一个文件，用规则逐个判断。\n\n\n\n4.1.1 案例 1：按名称查找（最基础，但最常用）\n你想在当前目录下，找所有 .log 文件：\nfind . -name \"*.log\"\n注意这里的几个关键点：\n\n.：查找起点\n-name：按文件名匹配\n“*.log”：glob 写法，但由 find 自己解释\n\n这是和 ls *.log 的一个重要区别，glob 是 Shell 展开，-name \"*.log\" 是 find 在判断。\n\n\n4.1.2 案例 2：忽略大小写的查找\n在 macOS 默认文件系统下，这个非常常见：\nfind . -iname \"*.pdf\"\n你不需要猜文件到底是 README、Readme 还是 readme。\n\n\n4.1.3 案例 3：按时间查找（现实世界非常常用）\n你想找 最近一天内修改过的文件：\nfind . -mtime -1\n含义是：\n\n-mtime：按“修改时间”\n-1：小于 1 天\n\n如果你想找 7 天前的文件：\nfind . -mtime +7\n这类用法在排查“最近谁动过什么”时非常有用。\n\n\n4.1.4 案例 4：按大小查找（清理磁盘的第一步）\n你想找大于 100MB 的文件：\nfind . -size +100M\n这一步不是为了立刻删除，而是为了定位异常对象。",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>查找与定位</span>"
+    ]
+  },
+  {
+    "objectID": "cp_5.html#进程查看",
+    "href": "cp_5.html#进程查看",
+    "title": "5  进程与系统状态",
+    "section": "",
+    "text": "5.1.1 ps：静态快照，而不是监控\nps 给你的不是“实时状态”，而是某一瞬间的进程快照。\n这是它的优势，而不是缺点。\n\n5.1.1.1 案例 1：看“我自己启动了什么”\nps\n输出：\n  PID TTY           TIME CMD\n10270 ttys001    0:00.44 -zsh\n79676 ttys003    0:00.14 /bin/zsh -il\n你会看到当前终端关联的进程。\n这一步的意义在于确认你现在这条 Shell， 自己派生出了哪些东西。\n\n\n5.1.1.2 案例 2：看“我这个用户在跑什么”\nps -u $(whoami)\n列出 你当前登录用户 运行的所有程序，包括终端、浏览器、微信等应用；后台服务、脚本；系统进程（以你身份运行的）\n这在桌面系统上非常实用，不关心系统服务，只看“我自己的程序”。\n\n\n5.1.1.3 案例 3：带点信息密度的常用写法\nps aux\n你会看到用户、PID、CPU / 内存占用、启动命令。不要试图一次看懂所有列。你现在只需要知道一件事，ps 用来回答“是谁”， 不是“现在怎么样”。\n\n\n\n5.1.2 top：正在发生什么\n如果说 ps 是照片， 那 top 是直播画面。\n\n5.1.2.1 案例 1：系统突然变慢时的第一反应\ntop\n你立刻能看到哪个进程在吃 CPU、内存压力是否异常、系统是否真的“忙”。在 macOS 上，top 的一个重要用法是判断“卡顿是不是实时发生的”。如果 top 里一切平稳， 那问题很可能不是当前负载。\n输出：\nProcesses: 512 total, 1 running, 511 sleeping, 2890 threads                                                    10:42:11\nLoad Avg: 0.68, 0.72, 0.81  CPU usage: 6.12% user, 2.03% sys, 91.85% idle\nSharedLibs: 842M resident, 168M data, 256M linkedit. MemRegions: 0 total, 0B resident, 310M private, 1780M shared.\nPhysMem: 11G used (1830M wired, 2950M compressor), 4.5G unused.\nVM: 280T vsize, 4112M framework vsize, 128942(0) swapins, 392114(0) swapouts.\nNetworks: packets: 21458931/32G in, 17385244/1900M out. Disks: 8823147/214G read, 6452109/98G written.\n\nPID    COMMAND        %CPU TIME     #TH    #WQ  #PORT MEM     PURG  CMPRS  PGRP  PPID  STATE     BOOSTS              %CPU_ME\n102    WindowServer   14.3 12:44:09 21     5    4312- 512M+   48M+  121M   102   1     sleeping  *0[1]              1.84532\n38112  Finder          6.8  01:12.55 8      3    624   142M    12M   36M    38112 1     sleeping  *0[402]            0.00000\n52988  Safari          5.9  04:08.91 29     2    911   388M+   0B    204M   52988 1     sleeping  *1[8721]           0.00000\n0      kernel_task    4.7  05:33:42 498/8  0    0     41M     0B    0B     0     0     running   0[0]               0.00000\n741    coreaudiod     3.1  02:11.28 9      1    3821  54M     0B    39M    741   1     sleeping  *0[1]              0.00000\n62931  Photos          2.4  09:18.66 18     2    507   621M-   0B    275M   62931 1     sleeping  *0[55891]          0.00000\n4489   Spotlight      1.9  00:48.13 6      1    334   98M     0B    64M    4489  1     sleeping  *0[9172]           0.00000\n78211  Code Helper     1.6  06:41.72 34     1    192   214M    0B    146M   78002 78002 sleeping  *1[336]            0.00000\n904    bluetoothd     1.2  18:03.11 11     4    552   58M     96K   44M    904   1     sleeping  *0[1]              0.30124\n1182   loginwindow    1.0  21:45.77 5      2    811   64M     0B    41M    1182  1     sleeping  *0[5]()*\n......",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>进程与系统状态</span>"
+    ]
+  },
+  {
+    "objectID": "cp_6.html#网络基本状态",
+    "href": "cp_6.html#网络基本状态",
+    "title": "6  网络与远程",
+    "section": "",
+    "text": "6.1.1 ping：最小可行的连通性判断\nping 只回答一个问题：“我能不能碰到对方？”\n\n6.1.1.1 案例 1：确认网络是否通\nping baidu.com\n如果你能看到持续返回：\n64 bytes from ...\n说明至少三件事成立，本地网络是通的、DNS 是通的、对方主机是可达的。\n如果 ping 不通， 你就可以立刻停止往上层猜测。\n\n\n6.1.1.2 案例 2：快速结束（桌面系统常用）\nping -c 4 google.com\n只发 4 次包就退出，避免无休止刷屏。\n\n\n\n6.1.2 ifconfig：我现在“接着”哪张网卡\nifconfig 不用来“配置”，而是用来确认状态。\nifconfig\n你不需要看懂全部输出，只要抓住这几件事：\n\n哪个接口是 en0 / en1\n有没有 inet（IPv4 地址）\n是否是 status: active\n\n现实判断是没有 IP， 后面所有网络问题都不用再查了。\n\n\n6.1.3 netstat：连接是否真的建立\nnetstat 在桌面系统里，常用于回答一个非常具体的问题：\n\n“这个连接到底有没有连上？”\n\n\n6.1.3.1 案例 1：查看当前网络连接\nnetstat -an\n这是查看网络连接和端口状态的命令，-a 即all，显示所有连接和监听端口，-n 即numeric，用数字显示地址和端口（不解析域名）\n你可以看到本机正在建立的连接、监听的端口、连接状态（ESTABLISHED / LISTEN 等）\n在调试网络程序、代理、端口占用时，这是比“感觉”可靠得多的判断方式。\n\n\n6.1.3.2 常用组合\n# 看谁在连你的 22 端口（SSH）\nnetstat -an | grep \".22 \"\n\n# 看所有 ESTABLISHED 连接\nnetstat -an | grep ESTABLISHED\n\n# 统计连接数最多的 IP\nnetstat -an | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>网络与远程</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html#原生命令行的上限与边界",
+    "href": "summary.html#原生命令行的上限与边界",
+    "title": "10  总结",
+    "section": "",
+    "text": "10.1.1 哪些问题原生命令就够了\n原生命令行不是弱，但它也不是无限。真正成熟的使用方式，不是把它用到极致，而是知道什么时候该停手。\n哪些问题，原生命令就够了？\n当问题具备“局部、明确、一次性”的特征时，原生命令行几乎总是最好的选择。典型情况包括：\n\n你需要快速看清一个目录或一批文件\n你需要从文本里筛几行、改几处\n你需要确认某个进程是不是异常\n你需要验证网络是否连通、接口是否返回\n你需要确认某件事“有没有发生过”\n\n这些问题的共同点是：\n\n不需要长期运行\n不需要复杂状态\n不需要图形交互\n不需要协作系统\n\n\n\n10.1.2 哪些问题你必须安装工具\n同样重要的是，要清楚哪些事不该硬扛。一旦问题出现下面这些特征，原生命令行就开始明显吃力了：\n\n需要长期运行 / 持续监控\n需要复杂状态管理\n需要可视化分析\n需要团队协作\n需要高层抽象（数据库、任务系统、工作流）\n\n例如：\n\n长期日志聚合与分析\n复杂数据清洗与建模\n服务级监控与告警\n多人协作的配置管理\n大规模自动化任务\n\n在这些场景里，继续坚持“只用原生”不是专业，而是浪费时间。你需要的不是更多命令，而是更合适的工具。当你开始反复“维护一堆命令”，而不是“解决一个问题”时，你已经越过了原生命令行的边界。\n\n\n10.1.3 为什么“理解原生”是长期价值\n既然很多问题最终还是要装工具，那为什么还要花力气理解原生？答案很简单，也很现实。\n第一，它给你一个“最低能力基线”\n第二，它让你在“工具失效时”站得住\n第三，它训练的是“判断力”，不是“记忆力”",
+    "crumbs": [
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>总结</span>"
+    ]
+  },
+  {
+    "objectID": "cp_7.html#open连接-gui-与-cli",
+    "href": "cp_7.html#open连接-gui-与-cli",
+    "title": "7  macOS 独有的原生命令",
+    "section": "",
+    "text": "7.1.1 案例 1：用命令行打开文件（但用 GUI 看）\nopen data.csv\n你没有指定任何程序， macOS 会自动用默认的 csv 阅读器打开。这意味着命令行负责“定位”，GUI 负责“展示”。\n\n\n7.1.2 案例 2：打开目录（Finder 立刻介入）\nopen .\n当前目录会直接在 Finder 中打开。这是一个非常常见的桌面工作流：在 CLI 里定位 → 用 Finder 做可视化操作。\n\n\n7.1.3 案例 3：指定程序打开\nopen -a \"WeChat.app\" .\n意思是启动微信 + 尝试打开当前文件夹，微信是聊天应用，不是文件编辑器，所以，微信启动，忽略 . 参数（微信不支持打开文件夹）\n什么时候需要. ?\nopen -a \"Visual Studio Code\" .    ✅ 用 VS Code 打开当前项目\nopen -a \"Sublime Text\" .          ✅ 用 Sublime 打开当前文件夹\nopen -a \"Finder\" .                ✅ 用 Finder 打开当前目录（等于 open .）\nopen -a \"WeChat\" .                ❌ 微信不支持，等效于只启动\n这一步不是“技巧”， 而是把 CLI 当作启动器。\n\n\n7.1.4 案例 4：打开 URL\nopen https://setfireonsdom.github.io/Ollama-Book/\n系统会自动用默认浏览器打开。这意味着你可以在脚本或命令中，触发真实的 GUI 行为。",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>macOS 独有的原生命令</span>"
+    ]
+  },
+  {
+    "objectID": "cp_8.html#alias轻量自动化",
+    "href": "cp_8.html#alias轻量自动化",
+    "title": "8  命令行自动化",
+    "section": "",
+    "text": "8.1.1 案例 1：给长命令起短名字\n假设你经常用这条命令：\nls -lh\n你可以定义：\nalias ll='ls -lh'\n现在你只需要敲：\nll\n注意，终端直接输入 alias ，作用范围仅在当前终端会话，关闭即失效。如果你要永远有效，请写入配置文件。\n\n1 确定你的 shell\necho $SHELL\n2 写入配置\n# 打开配置文件（以 zsh 为例） open ~/.zshrc\n9 或命令行直接追加\necho “alias ll=‘ls -lh’” &gt;&gt; ~/.zshrc\n3 立即生效\nsource ~/.zshrc # 重新加载配置\n\n\n\n9.0.1 案例 2：把“安全习惯”固化下来\n你已经形成一个习惯，删除前，先确认。你可以这样做：\nalias rml='ls'\n（这里只是示意，真实环境要更谨慎）\n核心思想是，alias 很适合固化“行为习惯”，而不是复杂逻辑。\n\nalias 只适合“一行、不带分支、不需要参数变化”的命令。",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>命令行自动化</span>"
+    ]
+  },
+  {
+    "objectID": "cp_8.html#定时与延迟执行cron-at存在但不保证可用",
+    "href": "cp_8.html#定时与延迟执行cron-at存在但不保证可用",
+    "title": "8  命令行自动化",
+    "section": "9.2 定时与延迟执行：cron / at（存在但不保证可用）",
+    "text": "9.2 定时与延迟执行：cron / at（存在但不保证可用）\ncron / at 解决的是什么问题？不是服务守护、复杂调度、长期任务系统，而是在“没人盯着”的时候，帮你按约定执行一件简单的事。\n在某些 macOS 环境中，普通用户可能会遇到权限/锁文件错误而无法使用（例如本书写作测试机就出现过）。因此本书不把 at 当作可靠方案。\n对于“延迟执行一次”的桌面需求，本书推荐更可靠的原生替代： sleep 60 && say \"任务完成\"它不依赖后台服务，行为可预测、可复现。\n\n9.2.1 cron：周期性执行\n你可以把 cron 理解成：“定时敲回车”\n\n9.2.1.1 案例 1：每天执行一次检查\n你已经验证过这条命令是安全且正确的：\ndf -h &gt; ./disk_status.txt\n现在你只是希望，它每天自动帮我执行一次。\n第一步：进入 crontab\ncrontab -e\n第一次执行时，系统可能会让你选择编辑器（这是正常的）。\n第二步：写一条 cron 规则\n在打开的文件中，加入一行：\n0 9 * * * df -h &gt; ~/disk_status.txt\n这行话只解释一次：\n┌ 分钟（0）\n│ ┌ 小时（9）\n│ │ ┌ 日（*）\n│ │ │ ┌ 月（*）\n│ │ │ │ ┌ 星期（*）\n│ │ │ │ │\n0 9 * * * 命令\n含义是每天早上 9 点，执行这条命令。\n第三步：保存并退出\n一保存，cron 就生效了。 你不需要“启动”它。\ncron 不是在你的 Shell 环境里运行的。这意味着没有你熟悉的 PATH、不会加载你的 alias、不会加载你的 shell 函数。所以在 cron 里，只允许写你已经单独验证过、不依赖交互环境的“裸命令”。\n\n\n\n9.2.2 at：一次性的“稍后执行”\n如果你的需求不是“每天”，而是：“过一会儿再做一次就好。”\n那用 at。\n\n9.2.2.1 案例 1：10 分钟后语音提醒\necho 'say \"任务完成\"' | at now + 10 minutes\nat 命令最小单位是分钟，不支持秒。",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>命令行自动化</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html#场景一快速理解一个陌生目录",
+    "href": "cp_9.html#场景一快速理解一个陌生目录",
+    "title": "9  真实工作场景",
+    "section": "",
+    "text": "pwd\nls\nls -l\nless test.txt\n# 递归搜索当前目录下所有文件中的 \"TODO\" 标记，找出包含 TODO \n# 的所有行\ngrep -R TODO .\n\n./src/main.py:15:    # TODO: 优化这段代码\n./docs/readme.md:42:  TODO: 补充安装说明\n./utils/helper.js:8:  // TODO 处理异常情况",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html#场景二批量查看-修改文本",
+    "href": "cp_9.html#场景二批量查看-修改文本",
+    "title": "9  真实工作场景",
+    "section": "9.2 场景二｜批量查看 / 修改文本",
+    "text": "9.2 场景二｜批量查看 / 修改文本\n\n背景： 一堆日志 / 配置 / CSV 你不需要精修，只需要快速判断和批量处理。\n\n# 只看关键行（而不是全文）\ngrep error server.log\n# 如果太多\ngrep error server.log | less\n# 排除干扰信息\ngrep error server.log | grep -v DEBUG\n这是现实中极其常见的二次筛选。\n# 批量预览替换效果（不改文件）\nsed 's/http/https/' config.conf\n先看输出，再决定是否改文件。\n# 真正修改（macOS 写法）\nsed -i '' 's/http/https/' *.conf\n这一步之前，你应该已经确认过：\nls *.conf",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html#场景三清理磁盘空间",
+    "href": "cp_9.html#场景三清理磁盘空间",
+    "title": "9  真实工作场景",
+    "section": "9.3 场景三｜清理磁盘空间",
+    "text": "9.3 场景三｜清理磁盘空间\n\n背景： 系统开始变慢、下载失败、莫名其妙报错 第一怀疑对象永远是：磁盘\n\n# 先看“是不是整体问题”\ndf -h\n# 再看“是谁在占”\ndu -h .\ndu -h . | sort -h\n# 定位“大而异常”的文件\nfind . -size +500M",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html#场景四定位异常进程",
+    "href": "cp_9.html#场景四定位异常进程",
+    "title": "9  真实工作场景",
+    "section": "9.4 场景四｜定位异常进程",
+    "text": "9.4 场景四｜定位异常进程\n\n背景： 风扇狂转 / 电池狂掉 / 系统卡顿 你不想重启，你想知道原因。\n\n# 先看“是谁在跑”\ntop\n再确认“这是谁启动的”\nps aux",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "cp_9.html#场景五查系统日志定位问题",
+    "href": "cp_9.html#场景五查系统日志定位问题",
+    "title": "9  真实工作场景",
+    "section": "9.5 场景五｜查系统日志定位问题",
+    "text": "9.5 场景五｜查系统日志定位问题\n\n背景： 程序异常、系统行为反常 Finder 看不出来，你需要事实。\n\n# 先限定时间范围\nlog show --last 10m\n# 按进程缩小范围\nlog show --predicate 'process == \"kernel\"' --last 10m\n# 或者针对具体应用：\nlog show --predicate 'process == \"MyApp\"' --last 10m",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>真实工作场景</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#用到的一些文件",
+    "href": "index.html#用到的一些文件",
+    "title": "MacOS Command Line in Practice",
+    "section": "用到的一些文件",
+    "text": "用到的一些文件\n用到了这些文件，自己创建也可以：clean_errors.log data.csv demo.sh disk_status.txt server.log Test.txt\nclean_errors.log ：\nerror 120391231231\nerror 123456789\ndata.csv ：\nid,name,score\n1,Alice,87\n2,Bob,92\n3,Charlie,78\ndemo.sh ：空\ndisk_status.txt ：\nFilesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on\n/dev/diskXs1s1   512Gi    24Gi   310Gi     8%    620k  3.1G    0%   /\ndevfs            210Ki   210Ki     0Bi   100%     720     0  100%   /dev\n/dev/diskXs6     512Gi   4.5Gi   310Gi     2%       5  3.1G    0%   /System/Volumes/VM\n/dev/diskXs2     512Gi   9.8Gi   310Gi     3%    1.6k  3.1G    0%   /System/Volumes/Preboot\n/dev/diskXs4     512Gi   3.1Mi   310Gi     1%      80  3.1G    0%   /System/Volumes/Update\n/dev/diskYs2     600Mi   8.2Mi   580Mi     2%       3  5.6M    0%   /System/Volumes/xarts\n/dev/diskYs1     600Mi   7.9Mi   580Mi     2%      34  5.6M    0%   /System/Volumes/iSCPreboot\n/dev/diskYs3     600Mi   1.9Mi   580Mi     1%     110  5.6M    0%   /System/Volumes/Hardware\n/dev/diskXs5     512Gi   138Gi   310Gi    31%    1.1M  3.1G    0%   /System/Volumes/Data\nmap auto_home      0Bi     0Bi     0Bi   100%       0     0     -   /System/Volumes/Data/home\nserver.log ：\n1\n2\n3\n4\n5\n6\n7\nerror 120391231231\nError 12333\nerror 123456789\nerrOR 992\nTest.txt ：\nerror 120391231231\nerror 123456789\nerror 120391231231\nerror 123456789\n有了pbcopy 命令，复制文件内容还挺简单的。",
+    "crumbs": [
+      "Preface"
+    ]
+  }
+]
