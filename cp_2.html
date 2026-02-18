@@ -259,6 +259,37 @@ touch TeSt.txt</code></pre>
 <p>都是同一个文件。</p>
 <pre><code>ls -li Test.txt test.txt</code></pre>
 <p><img src="images/clipboard-2784493338.png" class="img-fluid"></p>
+<p><code>touch</code> 用来 更新文件时间戳，如果文件不存在，则创建一个空文件。</p>
+<p><code>touch filename.txt</code></p>
+<p>发生两件事之一：</p>
+<p>1 文件不存在 → 创建一个 0 字节文件</p>
+<p>2 文件存在 → 更新它的“修改时间”</p>
+<p>每个文件都有时间属性（时间戳），access time（访问时间）、modification time（修改时间）、change time（状态变更时间）。</p>
+<p><code>touch</code> 默认会更新atime、mtime。ctime 会因为元数据改变而自动更新。</p>
+<p><code>ls</code> = list directory contents，用来列出目录中的文件和子目录。</p>
+<p>用法:</p>
+<pre><code># 列出当前目录下的可见文件。
+ls
+# 显示详细信息
+ls -l # 输出:权限 硬链接数 所有者 组 大小 修改时间 文件名
+# 显示隐藏文件
+ls -a
+# 人类可读大小
+ls -lh
+# 按时间排序
+ls -lt
+# 反向排序
+ls -ltr
+# 递归显示
+ls -R # 递归列出所有子目录内容，目录很大时会爆屏。
+# 显示 inode
+ls -i
+# 显示文件类型标记
+ls -F
+# 最常用组合
+ls -lh
+ls -la
+ls -ltr</code></pre>
 </section>
 <section id="权限" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="权限"><span class="header-section-number">2.1.2</span> 权限</h3>
@@ -272,6 +303,15 @@ chmod -x demo.sh
 ./demo.sh
 # 输出：zsh: permission denied: ./demo.sh</code></pre>
 <p>你会得到一个明确的拒绝。</p>
+<p>每个文件和目录都由 <strong>三组</strong> 权限来控制访问：Owner（文件所有者）、Group（文件所属组）、Others（其他用户）。</p>
+<p>每组权限包括读权限（read）、写权限（write）、执行权限（execute）。</p>
+<p>文件的第一个字符决定了文件类型（drwxr-xr-x+）：</p>
+<pre><code>-：普通文件
+d：目录
+l：符号链接（symlink）
+c：字符设备
+b：块设备</code></pre>
+<p>权限通过 <strong>rwx</strong> 来表示。具体怎么加权限，具体问题具体分析。</p>
 </section>
 <section id="finder-vs-cli" class="level3" data-number="2.1.3">
 <h3 data-number="2.1.3" class="anchored" data-anchor-id="finder-vs-cli"><span class="header-section-number">2.1.3</span> Finder vs CLI</h3>
@@ -291,6 +331,20 @@ du -h test.txt
 # 0B    demo.sh
 # 4.0K  test.txt</code></pre>
 <p>你会发现Finder 展示的是<strong>逻辑大小，</strong>CLI 可以告诉你<strong>实际占用空间。</strong>当空间、权限、归属出现争议时， 以 CLI 为准。</p>
+<p><code>du</code> 命令是 Unix-like 系统中非常常用的工具，用来 <strong>查看文件和目录的磁盘使用情况</strong>。</p>
+<pre><code># 这将显示当前目录及其所有子目录的大小（以块为单位，通常是 1KB）。
+du
+# 查看当前目录下文件和子目录的总大小
+du -s
+# 以“人类可读”的方式显示大小
+du -h
+# 显示所有文件的大小
+du -a
+# 显示总计
+du -c
+# 限制显示目录层级
+du -d 1
+du -hd 1</code></pre>
 </section>
 </section>
 <section id="浏览目录结构" class="level2" data-number="2.2">
@@ -312,9 +366,9 @@ du -h test.txt
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="glob"><span class="header-section-number">2.2.2</span> glob（* ? []）</h3>
 <p>在 glob 规则里：</p>
 <ul>
-<li><p>*：匹配 任意长度 的任意字符</p></li>
-<li><p>?：匹配 恰好一个字符</p></li>
-<li><p>[]：匹配 字符集合中的一个</p></li>
+<li><p>星号<code>*</code>：匹配 任意数量的字符（包括零个字符）。</p></li>
+<li><p>问号<code>?</code>：匹配 单个字符，但只能匹配一个字符。</p></li>
+<li><p>方括号<code>[]</code>：匹配 字符集中的任意单个字符。</p></li>
 </ul>
 <p>glob是筛选器，你想只看 <code>.log</code> 文件：</p>
 <pre><code># 只能匹配「当前目录」里的 txt 文件。
@@ -386,6 +440,26 @@ mv test.txt Test.txt</code></pre>
 <pre><code>rm *.tmp</code></pre>
 <p>而不是反过来。 macOS 的 rm 不会给你后悔机会。 没有回收站，没有撤销。</p>
 <p>删除是一个不可逆动作，你需要对它负责。</p>
+<p>常用:</p>
+<pre><code># 删除单个文件
+rm filename
+# 删除多个文件
+rm file1.txt file2.txt file3.txt
+# 删除空目录
+rm directory
+rmdir empty_directory
+# 交互式删除
+rm -i filename
+# 强制删除
+rm -f filename
+# 递归删除目录及其内容
+rm -r directory
+# 强制递归删除
+rm -rf directory # 该组合选项是 最危险 的组合之一，它会递归删除目录和目录中的所有内容，并且 不会进行任何确认。
+# 显示删除过程
+rm -v filename</code></pre>
+<p><strong><code>rm</code> 删除的文件不能恢复</strong>，一旦删除，它们就会从磁盘中移除，不会进入回收站。所以使用 <code>rm</code> 时要格外小心。</p>
+<p><strong>使用 <code>-rf</code> 时非常危险</strong>，特别是在根目录（<code>/</code>）下执行 <code>rm -rf /</code> 或在不小心的情况下删除了重要的系统文件。为了避免意外删除，你可以在关键命令中使用 <code>-i</code>（交互式删除）来多一步确认。</p>
 
 
 </section>
