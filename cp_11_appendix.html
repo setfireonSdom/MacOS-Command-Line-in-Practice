@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Mi Yun">
-<meta name="dcterms.date" content="2026-02-06">
 
-<title>MacOS Command Line in Practice</title>
+<title>Appendix A — Linux命令与Macos命令的差异 – MacOS Command Line in Practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./cp_1.html" rel="next">
+<link href="./summary.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -85,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cp_11_appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./cp_11_appendix.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Linux命令与Macos命令的差异</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -114,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -189,8 +187,8 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cp_11_appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Linux</span></span></a>
+  <a href="./cp_11_appendix.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Linux命令与Macos命令的差异</span></span></a>
   </div>
 </li>
       </ul>
@@ -205,45 +203,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#你手里的-macos-命令行到底是什么" id="toc-你手里的-macos-命令行到底是什么" class="nav-link" data-scroll-target="#你手里的-macos-命令行到底是什么">你手里的 macOS 命令行，到底是什么</a>
-  <ul class="collapse">
-  <li><a href="#macos-的命令行来自哪里bsd-unix" id="toc-macos-的命令行来自哪里bsd-unix" class="nav-link" data-scroll-target="#macos-的命令行来自哪里bsd-unix">macOS 的命令行来自哪里（BSD / Unix）</a></li>
-  <li><a href="#原生命令-简陋命令" id="toc-原生命令-简陋命令" class="nav-link" data-scroll-target="#原生命令-简陋命令">原生命令 ≠ 简陋命令</a></li>
-  <li><a href="#为什么限制条件反而让人更强" id="toc-为什么限制条件反而让人更强" class="nav-link" data-scroll-target="#为什么限制条件反而让人更强">为什么“限制条件”反而让人更强</a></li>
-  <li><a href="#本书的边界与适用场景" id="toc-本书的边界与适用场景" class="nav-link" data-scroll-target="#本书的边界与适用场景">本书的边界与适用场景</a></li>
-  </ul></li>
-  <li><a href="#用到的一些文件" id="toc-用到的一些文件" class="nav-link" data-scroll-target="#用到的一些文件">用到的一些文件</a></li>
-  </ul></li>
+  <li><a href="#linux-与-macos-cli-的核心相同点" id="toc-linux-与-macos-cli-的核心相同点" class="nav-link active" data-scroll-target="#linux-与-macos-cli-的核心相同点"><span class="header-section-number">A.1</span> Linux 与 macOS CLI 的核心相同点</a></li>
+  <li><a href="#shell-层几乎完全一致" id="toc-shell-层几乎完全一致" class="nav-link" data-scroll-target="#shell-层几乎完全一致"><span class="header-section-number">A.2</span> Shell 层几乎完全一致</a></li>
+  <li><a href="#unix-philosophy" id="toc-unix-philosophy" class="nav-link" data-scroll-target="#unix-philosophy"><span class="header-section-number">A.3</span> Unix Philosophy</a></li>
+  <li><a href="#linux-cli-常见但-macos-没有的命令" id="toc-linux-cli-常见但-macos-没有的命令" class="nav-link" data-scroll-target="#linux-cli-常见但-macos-没有的命令"><span class="header-section-number">A.4</span> Linux CLI 常见但 macOS 没有的命令</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cp_11_appendix.html">Appendices</a></li><li class="breadcrumb-item"><a href="./cp_11_appendix.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Linux命令与Macos命令的差异</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">MacOS Command Line in Practice</h1>
+<h1 class="title">Appendix A — Linux命令与Macos命令的差异</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Mi Yun </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">February 6, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -253,129 +232,157 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<section id="你手里的-macos-命令行到底是什么" class="level2">
-<h2 class="anchored" data-anchor-id="你手里的-macos-命令行到底是什么">你手里的 macOS 命令行，到底是什么</h2>
-<p>在开始任何命令之前，有一个问题必须先被回答清楚：</p>
-<blockquote class="blockquote">
-<p>你每天打开的这个 Terminal，到底是什么？</p>
-</blockquote>
-<p>如果这个问题没有答案，那么后面你记住的每一个命令，都只是偶然能用的技巧；</p>
-<p>如果这个问题有了答案，那么即使你忘了命令，你依然知道该往哪里找、该如何判断、该什么时候停手。</p>
-<p>这一章不教你“怎么用”。</p>
-<p>这一章只做一件事：<strong>校准你对 macOS 命令行的认知坐标系。</strong></p>
-<section id="macos-的命令行来自哪里bsd-unix" class="level3">
-<h3 class="anchored" data-anchor-id="macos-的命令行来自哪里bsd-unix">macOS 的命令行来自哪里（BSD / Unix）</h3>
-<p>macOS 的命令行，并不是苹果“后来加的一个工具”。它的血统非常清晰，也非常古老。你在 Terminal 里看到的 <code>ls</code>、<code>cp</code>、<code>grep</code>、<code>sed</code>、<code>awk</code>，并不是 macOS 专属发明，而是直接继承自 <strong>Unix 体系</strong>，更准确地说，来自 <strong>BSD 系</strong>。</p>
-<p>这意味着三件非常重要的事实：</p>
-<p>第一，macOS 的命令行不是“模仿 Linux”，而是<strong>与 Linux 同源、但不同分支</strong>。很多人在网上复制命令时踩的坑，本质不是“不会用”，而是把 <strong>GNU/Linux 的行为</strong>，错误地投射到了 <strong>BSD/macOS</strong> 上。</p>
-<p>第二，macOS 的原生命令，<strong>优先稳定与可预测性，而不是功能堆叠</strong>。BSD 工具通常选项更少、行为更固定、向后兼容性更强。它们被设计成：</p>
-<blockquote class="blockquote">
-<p>十年后还能用、二十年后还能解释得清楚。</p>
-</blockquote>
-<p>第三，你不是在“学一个苹果工具”，你是在使用一个 <strong>经过几十年现实世界验证的操作模型</strong>。文件、进程、权限、管道、文本流——这些不是“命令行概念”，而是计算机世界处理现实问题的一套基本抽象。</p>
-<p>Terminal 只是它们的入口。</p>
+<section id="linux-与-macos-cli-的核心相同点" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="linux-与-macos-cli-的核心相同点"><span class="header-section-number">A.1</span> Linux 与 macOS CLI 的核心相同点</h2>
+<p>两者都来自 <strong>Unix 系统</strong>，并遵循 <strong>POSIX 标准工具集</strong>。因此它们命令哲学相同、Shell 语法相同、大量命令完全一样、管道 / 重定向 / 变量全部一致。</p>
+<p>例如：</p>
+<pre><code>ls
+cd
+pwd
+cp
+mv
+rm
+cat
+mkdir
+rmdir
+touch
+head
+tail
+sort
+uniq
+wc
+echo</code></pre>
+<p>文件系统 / 文件处理</p>
+<pre><code>find
+stat
+du
+df
+file
+ln
+chmod
+chown</code></pre>
+<p>文本处理（Unix pipeline 核心）</p>
+<pre><code>grep
+sed
+awk
+cut
+paste
+tr</code></pre>
+<p>进程管理</p>
+<pre><code>ps
+top
+kill
+killall
+nice
+renice</code></pre>
+<p>网络</p>
+<pre><code>ssh
+scp
+ping
+netstat (legacy network tool)
+curl</code></pre>
+<p>shell builtin</p>
+<pre><code>export
+alias
+history
+env</code></pre>
 </section>
-<section id="原生命令-简陋命令" class="level3">
-<h3 class="anchored" data-anchor-id="原生命令-简陋命令">原生命令 ≠ 简陋命令</h3>
-<p>很多人一听到“原生命令”，脑子里会自动翻译成：</p>
-<ol type="1">
-<li>功能少</li>
-<li>不够强</li>
-<li>迟早要被更高级工具替代</li>
-</ol>
-<p>这是一个<strong>非常典型的误解</strong>。原生命令“看起来简单”，不是因为它们能力弱，而是因为它们<strong>被刻意限制了职责边界</strong>。</p>
-<p>一个原生命令，通常只做一件事：</p>
-<ul>
-<li><p>ls 只负责列出</p></li>
-<li><p>grep 只负责过滤</p></li>
-<li><p>awk 只负责按字段处理</p></li>
-<li><p>sort 只负责排序</p></li>
-</ul>
-<p>它们不关心“你的业务是什么”，不关心“你最后想得到什么报表”，也不关心“你是不是新手”。</p>
-<p>它们只保证一件事：输入是什么 → 输出就是什么</p>
-<p>真正的力量，并不在单个命令里， 而在于 你如何把它们组合起来。当你开始理解这一点，你会发现：</p>
-<ol type="1">
-<li>功能少”意味着行为可预测</li>
-<li>“选项少”意味着出错空间更小</li>
-<li>“职责单一”意味着组合空间更大</li>
-</ol>
-<p>原生命令不是简陋，它们只是拒绝替你思考。</p>
-</section>
-<section id="为什么限制条件反而让人更强" class="level3">
-<h3 class="anchored" data-anchor-id="为什么限制条件反而让人更强">为什么“限制条件”反而让人更强</h3>
-<p>这本书刻意设置了一个限制：</p>
-<blockquote class="blockquote">
-<p>不安装任何第三方工具</p>
-</blockquote>
-<p>这不是为了“复古”，也不是为了“装纯”。而是因为限制条件，会迫使你发生三种关键转变。</p>
-<p>第一，从“找工具”转向“理解问题”。</p>
-<p>当你不能随手 <code>brew install</code>，你会开始问自己这个问题的本质是什么？我到底是要“查找”，还是“过滤”，还是“统计”？这个操作，是一次性的，还是可以复用的？</p>
-<p>第二，从“记命令”转向“判断边界”。你会慢慢意识到：哪些问题，原生就够了；哪些问题，原生做到这里就该停；哪一步开始，引入工具才是理性选择。</p>
-<p>第三，从“依赖环境”转向“可迁移能力”。原生命令有一个非常现实的优势：</p>
-<blockquote class="blockquote">
-<p>它们几乎在哪都存在</p>
-</blockquote>
-<p>公司电脑、客户机器、远程服务器、救援模式、干净系统——当一切配置都不存在时，原生命令依然在。这不是浪漫主义，这是工程世界对“最低可用能力”的尊重。</p>
-</section>
-<section id="本书的边界与适用场景" class="level3">
-<h3 class="anchored" data-anchor-id="本书的边界与适用场景">本书的边界与适用场景</h3>
-<p>在你继续读之前，有必要把边界说清楚。这本书<strong>不会</strong>教你写复杂 shell 脚本；教你配置炫酷终端；教你替代 Linux 运维教程；教你成为命令行“专家”。</p>
-<p>这本书<strong>只做一件事</strong>，让你彻底理解：在 macOS 上， 不借助任何额外工具， 你已经拥有什么样的命令行能力。</p>
-<p>适合这本书的人，通常是：</p>
-<ol type="1">
-<li>长期使用 macOS 的开发者 / 数据 / 技术从业者</li>
-<li>对“命令行能不能再多做一点”有真实需求的人</li>
-<li>不想被工具牵着走，希望理解底层能力边界的人</li>
-</ol>
-</section>
-</section>
-<section id="用到的一些文件" class="level2">
-<h2 class="anchored" data-anchor-id="用到的一些文件">用到的一些文件</h2>
-<p>用到了这些文件，自己创建也可以：<code>clean_errors.log</code> <code>data.csv</code> <code>demo.sh</code> <code>disk_status.txt</code> <code>server.log Test.txt</code></p>
-<p><code>clean_errors.log</code> ：</p>
-<pre><code>error 120391231231
-error 123456789</code></pre>
-<p><code>data.csv</code> ：</p>
-<pre><code>id,name,score
-1,Alice,87
-2,Bob,92
-3,Charlie,78</code></pre>
-<p><code>demo.sh</code> ：空</p>
-<p><code>disk_status.txt</code> ：</p>
-<pre><code>Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
-/dev/diskXs1s1   512Gi    24Gi   310Gi     8%    620k  3.1G    0%   /
-devfs            210Ki   210Ki     0Bi   100%     720     0  100%   /dev
-/dev/diskXs6     512Gi   4.5Gi   310Gi     2%       5  3.1G    0%   /System/Volumes/VM
-/dev/diskXs2     512Gi   9.8Gi   310Gi     3%    1.6k  3.1G    0%   /System/Volumes/Preboot
-/dev/diskXs4     512Gi   3.1Mi   310Gi     1%      80  3.1G    0%   /System/Volumes/Update
-/dev/diskYs2     600Mi   8.2Mi   580Mi     2%       3  5.6M    0%   /System/Volumes/xarts
-/dev/diskYs1     600Mi   7.9Mi   580Mi     2%      34  5.6M    0%   /System/Volumes/iSCPreboot
-/dev/diskYs3     600Mi   1.9Mi   580Mi     1%     110  5.6M    0%   /System/Volumes/Hardware
-/dev/diskXs5     512Gi   138Gi   310Gi    31%    1.1M  3.1G    0%   /System/Volumes/Data
-map auto_home      0Bi     0Bi     0Bi   100%       0     0     -   /System/Volumes/Data/home</code></pre>
-<p><code>server.log</code> ：</p>
-<pre><code>1
+<section id="shell-层几乎完全一致" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="shell-层几乎完全一致"><span class="header-section-number">A.2</span> Shell 层几乎完全一致</h2>
+<p>Linux 与 macOS 的 shell 语法几乎完全一致：</p>
+<pre><code>1 
+pipe
+|
+
 2
+redirect
+&gt;
+&gt;&gt;
+&lt;
+
 3
+variable
+$PATH
+
 4
+command substitution
+$( )
+
 5
-6
-7
-error 120391231231
-Error 12333
-error 123456789
-errOR 992</code></pre>
-<p><code>Test.txt</code> ：</p>
-<pre><code>error 120391231231
-error 123456789
-error 120391231231
-error 123456789</code></pre>
-<p>有了<code>pbcopy</code> 命令，复制文件内容还挺简单的。</p>
+control flow
+if
+for
+while
 
-
+6 例子
+cat file.txt | grep error | sort | uniq -c</code></pre>
+<p>在 Linux / macOS <strong>完全一样</strong>。</p>
 </section>
+<section id="unix-philosophy" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="unix-philosophy"><span class="header-section-number">A.3</span> Unix Philosophy</h2>
+<p>Linux 与 macOS CLI 的共同哲学：</p>
+<p>1 Everything is a file</p>
+<p>设备 / 进程 / socket / pipe 都可以作为文件处理</p>
+<p>2 Small tools</p>
+<p>每个命令只做一件事。</p>
+<pre><code>grep   → search
+sort   → order
+uniq   → deduplicate</code></pre>
+<p>3 Composition</p>
+<p>通过管道组合：</p>
+<pre><code>A | B | C</code></pre>
+<p>4 Text stream interface</p>
+<p>CLI 默认处理:</p>
+<pre><code>stdin
+stdout
+stderr</code></pre>
+<p>这就是 Unix CLI 的核心设计。</p>
+<p>CLI 的真正兼容层是 POSIX，POSIX 规定了一套标准：</p>
+<pre><code>POSIX utilities
+POSIX shell
+POSIX filesystem
+POSIX signals</code></pre>
+<p>CLI 的兼容基础来自 <strong>POSIX 标准</strong>。</p>
+<pre><code>Linux CLI   ≈ POSIX + GNU userland
+macOS CLI   ≈ POSIX + BSD userland</code></pre>
+<p>两者都实现 POSIX interface。 POSIX 是共同接口，GNU / BSD 是不同实现。</p>
+</section>
+<section id="linux-cli-常见但-macos-没有的命令" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="linux-cli-常见但-macos-没有的命令"><span class="header-section-number">A.4</span> Linux CLI 常见但 macOS 没有的命令</h2>
+<p>这些命令通常依赖 Linux kernel 或 GNU 工具集，因此 macOS 默认不存在。</p>
+<p>1 系统信息</p>
+<pre><code># 列出所有磁盘 + 分区 + 挂载关系
+lsblk
+# 查看 CPU 架构 + 核心 + 线程信息
+lscpu
+# 查看 USB 设备
+lsusb
+# 查看内存（RAM）使用情况
+free
+# 查看 CPU + 内存 + IO + 进程 状态
+vmstat
+# 查看系统运行时间 + 负载
+uptime</code></pre>
+<p>2 网络</p>
+<pre><code># 查看网络连接（观测）
+ss (modern replacement for netstat)
+# 网络配置（控制）
+ip</code></pre>
+<p>3 systemd</p>
+<pre><code>systemctl
+journalctl</code></pre>
+<p>4 GNU 扩展</p>
+<pre><code>shuf
+tac
+realpath</code></pre>
+<p>5 包管理</p>
+<pre><code>apt
+dnf
+yum
+pacman</code></pre>
+<p>如果 shell 脚本只使用 POSIX 工具， 通常可以在 Linux 和 macOS 上直接运行。 如果使用 GNU 扩展， 则可能只能在 Linux 上运行。</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -781,11 +788,11 @@ error 123456789</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./summary.html" class="pagination-link" aria-label="总结">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">总结</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./cp_1.html" class="pagination-link" aria-label="Shell 与工作环境（不安装任何东西）">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Shell 与工作环境（不安装任何东西）</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

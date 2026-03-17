@@ -508,5 +508,60 @@
     "crumbs": [
       "Preface"
     ]
+  },
+  {
+    "objectID": "cp_11_appendix.html",
+    "href": "cp_11_appendix.html",
+    "title": "Appendix A — Linux命令与Macos命令的差异",
+    "section": "",
+    "text": "A.1 Linux 与 macOS CLI 的核心相同点\n两者都来自 Unix 系统，并遵循 POSIX 标准工具集。因此它们命令哲学相同、Shell 语法相同、大量命令完全一样、管道 / 重定向 / 变量全部一致。\n例如：\n文件系统 / 文件处理\n文本处理（Unix pipeline 核心）\n进程管理\n网络\nshell builtin",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Linux命令与Macos命令的差异</span>"
+    ]
+  },
+  {
+    "objectID": "cp_11_appendix.html#linux-与-macos-cli-的核心相同点",
+    "href": "cp_11_appendix.html#linux-与-macos-cli-的核心相同点",
+    "title": "Appendix A — Linux命令与Macos命令的差异",
+    "section": "",
+    "text": "ls\ncd\npwd\ncp\nmv\nrm\ncat\nmkdir\nrmdir\ntouch\nhead\ntail\nsort\nuniq\nwc\necho\n\nfind\nstat\ndu\ndf\nfile\nln\nchmod\nchown\n\ngrep\nsed\nawk\ncut\npaste\ntr\n\nps\ntop\nkill\nkillall\nnice\nrenice\n\nssh\nscp\nping\nnetstat (legacy network tool)\ncurl\n\nexport\nalias\nhistory\nenv",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Linux命令与Macos命令的差异</span>"
+    ]
+  },
+  {
+    "objectID": "cp_11_appendix.html#shell-层几乎完全一致",
+    "href": "cp_11_appendix.html#shell-层几乎完全一致",
+    "title": "Appendix A — Linux命令与Macos命令的差异",
+    "section": "A.2 Shell 层几乎完全一致",
+    "text": "A.2 Shell 层几乎完全一致\nLinux 与 macOS 的 shell 语法几乎完全一致：\n1 \npipe\n|\n\n2\nredirect\n&gt;\n&gt;&gt;\n&lt;\n\n3\nvariable\n$PATH\n\n4\ncommand substitution\n$( )\n\n5\ncontrol flow\nif\nfor\nwhile\n\n6 例子\ncat file.txt | grep error | sort | uniq -c\n在 Linux / macOS 完全一样。",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Linux命令与Macos命令的差异</span>"
+    ]
+  },
+  {
+    "objectID": "cp_11_appendix.html#unix-philosophy",
+    "href": "cp_11_appendix.html#unix-philosophy",
+    "title": "Appendix A — Linux命令与Macos命令的差异",
+    "section": "A.3 Unix Philosophy",
+    "text": "A.3 Unix Philosophy\nLinux 与 macOS CLI 的共同哲学：\n1 Everything is a file\n设备 / 进程 / socket / pipe 都可以作为文件处理\n2 Small tools\n每个命令只做一件事。\ngrep   → search\nsort   → order\nuniq   → deduplicate\n3 Composition\n通过管道组合：\nA | B | C\n4 Text stream interface\nCLI 默认处理:\nstdin\nstdout\nstderr\n这就是 Unix CLI 的核心设计。\nCLI 的真正兼容层是 POSIX，POSIX 规定了一套标准：\nPOSIX utilities\nPOSIX shell\nPOSIX filesystem\nPOSIX signals\nCLI 的兼容基础来自 POSIX 标准。\nLinux CLI   ≈ POSIX + GNU userland\nmacOS CLI   ≈ POSIX + BSD userland\n两者都实现 POSIX interface。 POSIX 是共同接口，GNU / BSD 是不同实现。",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Linux命令与Macos命令的差异</span>"
+    ]
+  },
+  {
+    "objectID": "cp_11_appendix.html#linux-cli-常见但-macos-没有的命令",
+    "href": "cp_11_appendix.html#linux-cli-常见但-macos-没有的命令",
+    "title": "Appendix A — Linux命令与Macos命令的差异",
+    "section": "A.4 Linux CLI 常见但 macOS 没有的命令",
+    "text": "A.4 Linux CLI 常见但 macOS 没有的命令\n这些命令通常依赖 Linux kernel 或 GNU 工具集，因此 macOS 默认不存在。\n1 系统信息\n# 列出所有磁盘 + 分区 + 挂载关系\nlsblk\n# 查看 CPU 架构 + 核心 + 线程信息\nlscpu\n# 查看 USB 设备\nlsusb\n# 查看内存（RAM）使用情况\nfree\n# 查看 CPU + 内存 + IO + 进程 状态\nvmstat\n# 查看系统运行时间 + 负载\nuptime\n2 网络\n# 查看网络连接（观测）\nss (modern replacement for netstat)\n# 网络配置（控制）\nip\n3 systemd\nsystemctl\njournalctl\n4 GNU 扩展\nshuf\ntac\nrealpath\n5 包管理\napt\ndnf\nyum\npacman\n如果 shell 脚本只使用 POSIX 工具， 通常可以在 Linux 和 macOS 上直接运行。 如果使用 GNU 扩展， 则可能只能在 Linux 上运行。",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Linux命令与Macos命令的差异</span>"
+    ]
   }
 ]
